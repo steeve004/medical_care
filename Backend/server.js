@@ -5,13 +5,14 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://adegbesansteeve:@dewAle00@cluster3.a9nwhzv.mongodb.net/', {
+mongoose.connect('mongodb+srv://adegbesansteeve:Adewale00@cluster3.xadm3zq.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 
 
 const testSchema = new mongoose.Schema({
@@ -200,7 +201,7 @@ const workersSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-const Worker = mongoose.model('Workers', workerSchema);
+const Worker = mongoose.model('Workers', workersSchema);
 
 // Registration endpoint
 app.post('/register', async (req, res) => {
@@ -208,7 +209,7 @@ app.post('/register', async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
     // Check if email is already registered
-    const existingWorker = await Customer.findOne({ email });
+    const existingWorker = await Worker.findOne({ email });
     if (existingWorker) {
       return res.status(400).json({ error: 'Email is already registered' });
     }
